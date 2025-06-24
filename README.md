@@ -119,3 +119,7 @@ npm install
 # Jalankan project
 npm run dev
 ```
+---
+## 🙌 Penulis
+Made with ❤️ by Ivan Nafrizaldi
+LinkedIn: linkedin.com/in/ivannafrizaldi

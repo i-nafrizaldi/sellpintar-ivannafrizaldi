@@ -1,5 +1,8 @@
+import { Toaster } from "@/components/ui/sonner";
+import StoreProvider from "@/providers/StoreProvider";
+import AppLayoutWrapper from "@/utils/AppLayoutWrapper";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Geist } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,7 +10,7 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const geistMono = Archivo({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
@@ -27,7 +30,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <StoreProvider>
+          {/* <Navbar /> */}
+          <AppLayoutWrapper>
+            {children}
+            <Toaster richColors position="top-center" />
+          </AppLayoutWrapper>
+          {/* <Footer /> */}
+        </StoreProvider>
       </body>
     </html>
   );

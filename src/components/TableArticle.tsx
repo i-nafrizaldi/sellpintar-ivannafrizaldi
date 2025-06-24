@@ -47,7 +47,7 @@ const TableArticles: FC<ArticleRowTableProps> = ({
             Priview
           </Link>
           <Link
-            href={`dashboard/articles/${id}/edit`}
+            href={`articles/${id}/edit`}
             className="text-blue-500 underline"
           >
             Edit

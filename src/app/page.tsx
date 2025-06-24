@@ -81,13 +81,7 @@ const Home = () => {
               </SelectContent>
             </Select>
 
-            {/* <Input
-              ref={inputRef}
-              className="bg-white text-black"
-              placeholder="Search Articles"
-              onChange={(e) => handleSearch(e.target.value)}
-            /> */}
-
+       
             <AutoComplete />
           </div>
         </div>

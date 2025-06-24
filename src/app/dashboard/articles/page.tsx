@@ -1,8 +1,17 @@
 "use client";
+import AutoComplete from "@/components/AutoComplete";
 import PaginationControls from "@/components/Pagination";
 import TableArticles from "@/components/TableArticle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Select,
   SelectContent,
@@ -20,11 +29,14 @@ import {
 import AdminAuthGuard from "@/hoc/AdminAuthGuard";
 import useGetArticleList from "@/hooks/api/articles/useGetArticles";
 import { useGetCategories } from "@/hooks/api/categories/useGetCategories";
+import { useAppSelector } from "@/redux/hooks";
 import { debounce } from "lodash";
-import { LogOut, Newspaper, Tag } from "lucide-react";
-import React, { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 
 const page = () => {
+  const { username, id } = useAppSelector((state) => state.user);
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState("");
   const [categoryId, setCategoryId] = useState("");
@@ -60,7 +72,22 @@ const page = () => {
     <div className="bg-gray-100 flex flex-col w-full gap-6">
       <div className="flex justify-between w-full px-6 pt-5 pb-4 bg-white">
         <div className="text-xl font-semibold">article</div>
-        <div>profile</div>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="flex items-center gap-2 focus:outline-none">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <div className="text-sm font-bold ">{username}</div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => router.push(`/profile/${id}`)}>
+              Profile
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <div className="px-6">
         <div className="p-6 bg-white border-b-[1px]">
@@ -88,14 +115,14 @@ const page = () => {
               </SelectContent>
             </Select>
 
-            <Input
-              ref={inputRef}
-              className="bg-white w-[240px] h-[36px]"
-              placeholder="Search Articles"
-              onChange={(e) => handleSearch(e.target.value)}
-            />
+            <AutoComplete />
           </div>
-          <Button size={"lg"}>Article</Button>{" "}
+          <Button
+            onClick={() => router.push("/dashboard/articles/create")}
+            size={"lg"}
+          >
+            Add Article
+          </Button>{" "}
         </div>
         <Table className="bg-white rounded-xl border border-slate-200">
           <TableHeader className="bg-gray-100">

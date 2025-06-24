@@ -13,6 +13,7 @@ import {
 import { useAppDispatch } from "@/redux/hooks";
 import { logoutAction } from "@/redux/slices/userSlice";
 import { LogOut, Newspaper, Tag } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -30,7 +31,14 @@ const Sidebar = () => {
   return (
     <div className="py-6 px-4 text-white bg-blue-600 min-h-screen">
       <div className="flex flex-col gap-6">
-        LOGO
+        <Image
+          onClick={() => router.push("/")}
+          src="/LogoIpsumWhite.png"
+          alt={""}
+          width={800}
+          height={400}
+          className="w-[134px] h-6  object-cover rounded-xl justify-center mx-auto cursor-pointer"
+        />
         <div className="flex flex-col gap-2 font-bold">
           <Link href="/dashboard/articles">
             <div

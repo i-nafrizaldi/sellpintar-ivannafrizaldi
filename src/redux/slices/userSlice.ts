@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { date } from "zod";
 
 const initialState: Pick<User, "id" | "username" | "role"> = {
-  id: 0,
+  id: "",
   username: "",
   role: Role.user,
 };
@@ -18,7 +18,7 @@ export const userSlice = createSlice({
       state.role = action.payload.role;
     },
     logoutAction: (state) => {
-      state.id = 0;
+      state.id = "";
       state.username = "";
       state.role = Role.user;
     },

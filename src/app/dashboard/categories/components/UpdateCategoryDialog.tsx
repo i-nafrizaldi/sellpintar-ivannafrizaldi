@@ -30,8 +30,7 @@ export function UpdateCategoryDialog({
 }: UpdateCategoryDialogProps) {
   const [open, setOpen] = useState(false);
   const { updateCategory, isLoading } = useUpdateCategory();
-  const { category } = useGetCategory(categoryId);
-
+  const { getCategory } = useGetCategory(categoryId);
   const form = useForm<z.infer<typeof ValidationSchema>>({
     resolver: zodResolver(ValidationSchema),
     mode: "all",
@@ -39,14 +38,6 @@ export function UpdateCategoryDialog({
       name: "",
     },
   });
-
-  useEffect(() => {
-    if (category?.id) {
-      form.reset({
-        name: category.name,
-      });
-    }
-  }, [category]);
 
   const onSubmit = async (values: z.infer<typeof ValidationSchema>) => {
     await updateCategory(categoryId, { name: values.name });

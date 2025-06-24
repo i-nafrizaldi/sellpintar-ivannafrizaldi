@@ -9,15 +9,17 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useAppSelector } from "@/redux/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useCreateArticle } from "@/hooks/api/articles/useCreateArticle";
 import { ValidationSchema } from "./validationSchema";
 import AdminAuthGuard from "@/hoc/AdminAuthGuard";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<File | null>(null);
   const { createArticle, isLoading } = useCreateArticle();
@@ -51,12 +53,15 @@ const Page = () => {
       imageFile: image,
     });
   };
-
+ 
   return (
     <div className="flex min-h-screen">
       <main className="flex-1 bg-gray-100 p-6 ">
-        <div className="bg-gray-50 rounded-lg p-6">
-          <h1 className="text-xl font-semibold mb-4">Create Article</h1>
+        <div className="bg-gray-50 rounded-lg flex flex-col gap-4 p-6">
+          <div className="flex gap-2 items-center">
+            <ArrowLeft onClick={() => router.back()} className="cursor-pointer" />
+            <h1 className="text-xl font-semibold ">Create Article</h1>
+          </div>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">

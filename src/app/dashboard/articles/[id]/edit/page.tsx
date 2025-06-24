@@ -8,12 +8,12 @@ import ItemCategory from "@/components/ItemCategory";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useUpdateArticle } from "@/hooks/api/articles/useUpdateArticle";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axios";
 import { Article } from "@/types/article.type";
 import { ValidationSchema } from "./ValidationSchema";
@@ -25,6 +25,7 @@ const Page = () => {
   const [image, setImage] = useState<File | null>(null);
   const [initialArticle, setInitialArticle] = useState<Article | null>(null);
   const { updateArticle, isLoading } = useUpdateArticle();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof ValidationSchema>>({
     resolver: zodResolver(ValidationSchema),
@@ -75,8 +76,14 @@ const Page = () => {
   return (
     <div className="flex min-h-screen">
       <main className="flex-1 bg-gray-100 p-6">
-        <div className="bg-white rounded-lg p-6">
-          <h1 className="text-xl font-semibold mb-4">Edit Article</h1>
+        <div className="bg-white rounded-lg p-6 flex flex-col gap-4">
+          <div className="flex gap-2 items-center">
+            <ArrowLeft
+              onClick={() => router.back()}
+              className="cursor-pointer"
+            />
+            <h1 className="text-xl font-semibold ">Edit Article</h1>
+          </div>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

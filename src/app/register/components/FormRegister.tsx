@@ -13,6 +13,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { ValidationSchema } from "../validationSchema";
+import Image from "next/image";
+import logo from "/../public/Logoipsum.png";
 
 export function FormRegister() {
   const { register, isLoading } = useRegister();
@@ -34,7 +36,15 @@ export function FormRegister() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="bg-white w-[343px] py-6 px-2.5 flex flex-col justify-center gap-6 rounded-[24px]"
       >
-        <div className="mx-auto">Logo</div>
+        <div className="mx-auto">
+          <Image
+            src="/Logoipsum.png"
+            alt={""}
+            width={800}
+            height={400}
+            className="w-[134px] h-6  object-cover rounded-xl "
+          />
+        </div>
         <FormInput
           name="username"
           type="username"
